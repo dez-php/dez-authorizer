@@ -20,7 +20,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Dez\\Auth\\": "src/Auth"
+      "Dez\\Authorizer\\": "src/Auth"
     }
   }
 }

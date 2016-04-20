@@ -46,6 +46,8 @@ class Session extends Authorizer
      */
     public function login()
     {
+        $this->logout();
+
         $credentials = CredentialModel::query()
             ->where('email', $this->credentials()->getEmail())
             ->where('password', $this->hash($this->credentials()->getPassword()))

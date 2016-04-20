@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f314cdb3c3194ab7879f4c7dd684745a",
-    "content-hash": "cc118710a03c6f0e835cae831f1a7c7d",
+    "hash": "e896365ff0e25c1fbe7f4a6fc2089f40",
+    "content-hash": "0ecd8388b1cadb2c8d3f64d8132d82f2",
     "packages": [
         {
             "name": "dez-php/dez-collection",

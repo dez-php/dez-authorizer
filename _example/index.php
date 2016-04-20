@@ -10,7 +10,7 @@ use Dez\Session\Adapter\Files;
 
 include_once __DIR__ . '/../vendor/autoload.php';
 
-error_reporting(1);
+error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
 $container = Container::instance();
@@ -38,6 +38,6 @@ $container->set('auth', function() use ($container){
 /** @var Session $auth */
 $auth = $container->get('auth');
 
-$auth;
-
 var_dump($auth);
+
+exit(1);

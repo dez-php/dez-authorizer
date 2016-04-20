@@ -45,13 +45,13 @@ abstract class Authorizer extends Injectable {
             
             $this->credentials()
                 ->setEmail($email)
-                ->setPassword($password)
+                ->setPassword($this->hash($password))
                 ->setStatus($status)
                 ->setCreatedAt($date)
                 ->setUpdatedAt($date)
             ;
             
-            if(! $this->credentials()->save()) {
+            if(! $this->credentials()->save(true)) {
                 throw new AuthException('Can not register user');
             }
         }
