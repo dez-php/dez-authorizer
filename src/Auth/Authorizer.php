@@ -3,6 +3,8 @@
 namespace Dez\Authorizer;
 
 use Dez\Authorizer\Hasher\UUID;
+use Dez\Authorizer\Models\Auth\SessionModel;
+use Dez\Authorizer\Models\Auth\TokenModel;
 use Dez\Authorizer\Models\CredentialModel;
 use Dez\DependencyInjection\Injectable;
 use Dez\Http\Cookies;
@@ -144,6 +146,25 @@ abstract class Authorizer extends Injectable {
     public function setPassword($password)
     {
         $this->credentials()->setPassword($password);
+
+        return $this;
+    }
+
+    /**
+     * @return SessionModel|TokenModel
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * @param SessionModel|TokenModel $model
+     * @return static
+     */
+    public function setModel($model)
+    {
+        $this->model = $model;
 
         return $this;
     }
