@@ -28,7 +28,7 @@ class Session extends Authorizer
     {
         if ($authKey = $this->cookies->get($this->cookieKey(), false)) {
 
-            $sessionModel = $this->findSession($this->protectedHash($authKey));
+            $sessionModel = $this->cleanSession()->findSession($this->protectedHash($authKey));
 
             if ($sessionModel->exists()) {
                 $sessionModel->setUsedAt((new \DateTime())->format('Y-m-d H:i:s'))->save();
@@ -69,7 +69,7 @@ class Session extends Authorizer
      */
     public function logout()
     {
-        $this->cookies->get($this->cookieKey())->delete();
+        $this->cookies->get($this->cookieKey())->delete()->send();
 
         if($this->model->exists()) {
             $this->model->delete();
@@ -79,7 +79,15 @@ class Session extends Authorizer
     }
 
     /**
-     *
+     * @return SessionModel
+     */
+    public function getModel()
+    {
+        return parent::getModel();
+    }
+
+    /**
+     * @return $this
      */
     protected function createSession()
     {
@@ -88,15 +96,21 @@ class Session extends Authorizer
 
         $this->cookies->set($this->cookieKey(), $hash, time() + 90 * 86400)->send();
 
-        $this->getModel()
+        $session = new SessionModel();
+
+        $session
             ->setAuthId($this->credentials()->id())
             ->setCreatedAt($date)
             ->setUsedAt($date)
             ->setExpiryDate((new \DateTime('+ 90 days'))->format('Y-m-d H:i:s'))
             ->setAuthHash($this->protectedHash($hash))
             ->setUniqueHash($this->uniqueHash())
-            ->save()
+            ->save(true)
         ;
+
+        $this->model = $session;
+
+        return $this;
     }
 
     /**
@@ -127,6 +141,19 @@ class Session extends Authorizer
     protected function protectedHash($hash)
     {
         return $this->hash($hash);
+    }
+
+    /**
+     * @return $this
+     */
+    protected function cleanSession()
+    {
+        SessionModel::query()
+            ->where('expiry_date', (new \DateTime())->format('Y-m-d H:i:s'), '<=')
+            ->delete()
+        ;
+
+        return $this;
     }
     
 }

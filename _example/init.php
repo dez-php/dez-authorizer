@@ -1,6 +1,5 @@
 <?php
 
-use Dez\Authorizer\Adapter\Session;
 use Dez\Config\Config;
 use Dez\DependencyInjection\Container;
 use Dez\Http\Cookies;
@@ -28,16 +27,3 @@ $container->set('cookies', function(){
 });
 
 OrmConnection::init(Config::factory(__DIR__ . '/config/connection.json'), 'dev');
-
-$container->set('auth', function() use ($container){
-    $auth = new Session();
-    $auth->setDi($container);
-    return $auth->initialize();
-});
-
-/** @var Session $auth */
-$auth = $container->get('auth');
-
-var_dump($auth);
-
-exit(1);
