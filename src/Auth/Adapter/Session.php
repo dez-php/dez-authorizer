@@ -96,6 +96,8 @@ class Session extends Authorizer
 
         $this->cookies->set($this->cookieKey(), $hash, time() + 90 * 86400)->send();
 
+        SessionModel::query()->where('unique_hash', $this->uniqueHash())->first()->delete();
+
         $session = new SessionModel();
 
         $session
