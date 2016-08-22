@@ -2,14 +2,14 @@
 
     namespace Dez\Authorizer\Models\Auth;
 
+    use Dez\Authorizer\Models\AbstractIntermediateModel;
     use Dez\Authorizer\Models\CredentialModel;
-    use Dez\ORM\Model\Table as ORMTable;
 
     /**
      * Class AuthSession
      * @package Dez\Auth\Models
      */
-    class TokenModel extends ORMTable {
+    class TokenModel extends AbstractIntermediateModel {
 
         /**
          * @var string

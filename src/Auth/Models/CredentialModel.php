@@ -4,13 +4,12 @@
 
     use Dez\Authorizer\Models\Auth\SessionModel;
     use Dez\Authorizer\Models\Auth\TokenModel;
-    use Dez\ORM\Model\Table as ORMTable;
 
     /**
      * Class AuthSession
      * @package Dez\Authorizer\Models
      */
-    class CredentialModel extends ORMTable {
+    class CredentialModel extends AbstractIntermediateModel {
 
         const STATUS_ACTIVE = 'active';
         const STATUS_LOCKED = 'locked';
